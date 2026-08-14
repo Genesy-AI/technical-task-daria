@@ -16,17 +16,20 @@ importers:
         version: 1.13.0
       '@temporalio/worker':
         specifier: ^1.13.0
-        version: 1.13.0
+        version: 1.13.0(esbuild@0.25.9)
       '@temporalio/workflow':
         specifier: ^1.13.0
         version: 1.13.0
       dotenv:
         specifier: ^17.2.2
-        version: 17.2.3
+        version: 17.4.2
       express:
         specifier: ^5.1.0
-        version: 5.1.0
+        version: 5.1.0(supports-color@5.5.0)
     devDependencies:
+      '@temporalio/testing':
+        specifier: ^1.13.0
+        version: 1.13.0(esbuild@0.25.9)
       '@types/express':
         specifier: ^5.0.3
         version: 5.0.3
@@ -53,7 +56,7 @@ importers:
         version: 5.9.2
       vitest:
         specifier: ^3.2.4
-        version: 3.2.4(@types/node@22.18.1)(@vitest/ui@3.2.4)(jiti@2.5.1)(terser@5.44.0)
+        version: 3.2.4(@types/node@22.18.1)(@vitest/ui@3.2.4)(jiti@2.5.1)(supports-color@5.5.0)(terser@5.44.0)
 
 packages:
 
@@ -569,6 +572,10 @@ packages:
     resolution: {integrity: sha512-jplwOQAgghdRJljTVI9Lawar4L0vGM+vT0TfxvKm+/hVf4CpPEAwvy+El9doR4wu1uYg9g94LnPmZdzoUu5qyA==}
     engines: {node: '>= 18.0.0'}
 
+  '@temporalio/testing@1.13.0':
+    resolution: {integrity: sha512-YTOLYjg+4lKuopRMKeuUBQ5+/W/t01JKH8Gd0uJgjHIO1FaiOCMlfB2IoND9VzfjYS6UD7Wu9kCsQwdp9xtnLg==}
+    engines: {node: '>= 18.0.0'}
+
   '@temporalio/worker@1.13.0':
     resolution: {integrity: sha512-NmtDleOccUVrYwbg8H3gjQt5dPMbKG6SUTegO9KlhipsEuJQ69OAeenMhjUmuEsZhG/jkaFwPR81JnAvBovgIw==}
     engines: {node: '>= 18.0.0'}
@@ -745,6 +752,11 @@ packages:
 
   acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+
+  acorn@8.18.0:
+    resolution: {integrity: sha512-lGq+9yr1/GuAWaVYIHRjvvySG5/4VfKIvC8EWxStPdcDh/Ka7FG3twP6v4d5BkravUilhIAsG4Qj83t02LWUPQ==}
     engines: {node: '>=0.4.0'}
     hasBin: true
 
@@ -944,8 +956,8 @@ packages:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
 
-  dotenv@17.2.3:
-    resolution: {integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==}
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -1692,6 +1704,7 @@ packages:
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -2203,7 +2216,23 @@ snapshots:
       long: 5.3.2
       protobufjs: 7.5.4
 
-  '@temporalio/worker@1.13.0':
+  '@temporalio/testing@1.13.0(esbuild@0.25.9)':
+    dependencies:
+      '@temporalio/activity': 1.13.0
+      '@temporalio/client': 1.13.0
+      '@temporalio/common': 1.13.0
+      '@temporalio/core-bridge': 1.13.0
+      '@temporalio/proto': 1.13.0
+      '@temporalio/worker': 1.13.0(esbuild@0.25.9)
+      '@temporalio/workflow': 1.13.0
+      abort-controller: 3.0.0
+    transitivePeerDependencies:
+      - '@swc/helpers'
+      - esbuild
+      - uglify-js
+      - webpack-cli
+
+  '@temporalio/worker@1.13.0(esbuild@0.25.9)':
     dependencies:
       '@grpc/grpc-js': 1.13.4
       '@swc/core': 1.13.5
@@ -2222,11 +2251,11 @@ snapshots:
       protobufjs: 7.5.4
       rxjs: 7.8.2
       source-map: 0.7.6
-      source-map-loader: 4.0.2(webpack@5.101.3(@swc/core@1.13.5))
+      source-map-loader: 4.0.2(webpack@5.101.3(@swc/core@1.13.5)(esbuild@0.25.9))
       supports-color: 8.1.1
-      swc-loader: 0.2.6(@swc/core@1.13.5)(webpack@5.101.3(@swc/core@1.13.5))
+      swc-loader: 0.2.6(@swc/core@1.13.5)(webpack@5.101.3(@swc/core@1.13.5)(esbuild@0.25.9))
       unionfs: 4.6.0
-      webpack: 5.101.3(@swc/core@1.13.5)
+      webpack: 5.101.3(@swc/core@1.13.5)(esbuild@0.25.9)
     transitivePeerDependencies:
       - '@swc/helpers'
       - esbuild
@@ -2357,7 +2386,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.14
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@22.18.1)(@vitest/ui@3.2.4)(jiti@2.5.1)(terser@5.44.0)
+      vitest: 3.2.4(@types/node@22.18.1)(@vitest/ui@3.2.4)(jiti@2.5.1)(supports-color@5.5.0)(terser@5.44.0)
 
   '@vitest/utils@3.2.4':
     dependencies:
@@ -2464,6 +2493,8 @@ snapshots:
 
   acorn@8.15.0: {}
 
+  acorn@8.18.0: {}
+
   ajv-formats@2.1.1(ajv@8.17.1):
     optionalDependencies:
       ajv: 8.17.1
@@ -2501,7 +2532,7 @@ snapshots:
 
   binary-extensions@2.3.0: {}
 
-  body-parser@2.2.0:
+  body-parser@2.2.0(supports-color@5.5.0):
     dependencies:
       bytes: 3.1.2
       content-type: 1.0.5
@@ -2650,7 +2681,7 @@ snapshots:
 
   dotenv@16.6.1: {}
 
-  dotenv@17.2.3: {}
+  dotenv@17.4.2: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -2746,10 +2777,10 @@ snapshots:
 
   expect-type@1.2.2: {}
 
-  express@5.1.0:
+  express@5.1.0(supports-color@5.5.0):
     dependencies:
       accepts: 2.0.0
-      body-parser: 2.2.0
+      body-parser: 2.2.0(supports-color@5.5.0)
       content-disposition: 1.0.0
       content-type: 1.0.5
       cookie: 0.7.1
@@ -2758,7 +2789,7 @@ snapshots:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       etag: 1.8.1
-      finalhandler: 2.1.0
+      finalhandler: 2.1.0(supports-color@5.5.0)
       fresh: 2.0.0
       http-errors: 2.0.0
       merge-descriptors: 2.0.0
@@ -2769,9 +2800,9 @@ snapshots:
       proxy-addr: 2.0.7
       qs: 6.14.0
       range-parser: 1.2.1
-      router: 2.2.0
-      send: 1.2.0
-      serve-static: 2.2.0
+      router: 2.2.0(supports-color@5.5.0)
+      send: 1.2.0(supports-color@5.5.0)
+      serve-static: 2.2.0(supports-color@5.5.0)
       statuses: 2.0.1
       type-is: 2.0.1
       vary: 1.1.2
@@ -2798,7 +2829,7 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
-  finalhandler@2.1.0:
+  finalhandler@2.1.0(supports-color@5.5.0):
     dependencies:
       debug: 4.4.1(supports-color@5.5.0)
       encodeurl: 2.0.0
@@ -3159,7 +3190,7 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.50.0
       fsevents: 2.3.3
 
-  router@2.2.0:
+  router@2.2.0(supports-color@5.5.0):
     dependencies:
       debug: 4.4.1(supports-color@5.5.0)
       depd: 2.0.0
@@ -3186,7 +3217,7 @@ snapshots:
 
   semver@7.7.2: {}
 
-  send@1.2.0:
+  send@1.2.0(supports-color@5.5.0):
     dependencies:
       debug: 4.4.1(supports-color@5.5.0)
       encodeurl: 2.0.0
@@ -3206,12 +3237,12 @@ snapshots:
     dependencies:
       randombytes: 2.1.0
 
-  serve-static@2.2.0:
+  serve-static@2.2.0(supports-color@5.5.0):
     dependencies:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 1.2.0
+      send: 1.2.0(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -3259,11 +3290,11 @@ snapshots:
 
   source-map-js@1.2.1: {}
 
-  source-map-loader@4.0.2(webpack@5.101.3(@swc/core@1.13.5)):
+  source-map-loader@4.0.2(webpack@5.101.3(@swc/core@1.13.5)(esbuild@0.25.9)):
     dependencies:
       iconv-lite: 0.6.3
       source-map-js: 1.2.1
-      webpack: 5.101.3(@swc/core@1.13.5)
+      webpack: 5.101.3(@swc/core@1.13.5)(esbuild@0.25.9)
 
   source-map-support@0.5.21:
     dependencies:
@@ -3302,29 +3333,30 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  swc-loader@0.2.6(@swc/core@1.13.5)(webpack@5.101.3(@swc/core@1.13.5)):
+  swc-loader@0.2.6(@swc/core@1.13.5)(webpack@5.101.3(@swc/core@1.13.5)(esbuild@0.25.9)):
     dependencies:
       '@swc/core': 1.13.5
       '@swc/counter': 0.1.3
-      webpack: 5.101.3(@swc/core@1.13.5)
+      webpack: 5.101.3(@swc/core@1.13.5)(esbuild@0.25.9)
 
   tapable@2.2.3: {}
 
-  terser-webpack-plugin@5.3.14(@swc/core@1.13.5)(webpack@5.101.3(@swc/core@1.13.5)):
+  terser-webpack-plugin@5.3.14(@swc/core@1.13.5)(esbuild@0.25.9)(webpack@5.101.3(@swc/core@1.13.5)(esbuild@0.25.9)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.30
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
       terser: 5.44.0
-      webpack: 5.101.3(@swc/core@1.13.5)
+      webpack: 5.101.3(@swc/core@1.13.5)(esbuild@0.25.9)
     optionalDependencies:
       '@swc/core': 1.13.5
+      esbuild: 0.25.9
 
   terser@5.44.0:
     dependencies:
       '@jridgewell/source-map': 0.3.11
-      acorn: 8.15.0
+      acorn: 8.18.0
       commander: 2.20.3
       source-map-support: 0.5.21
 
@@ -3415,7 +3447,7 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-node@3.2.4(@types/node@22.18.1)(jiti@2.5.1)(terser@5.44.0):
+  vite-node@3.2.4(@types/node@22.18.1)(jiti@2.5.1)(supports-color@5.5.0)(terser@5.44.0):
     dependencies:
       cac: 6.7.14
       debug: 4.4.1(supports-color@5.5.0)
@@ -3450,7 +3482,7 @@ snapshots:
       jiti: 2.5.1
       terser: 5.44.0
 
-  vitest@3.2.4(@types/node@22.18.1)(@vitest/ui@3.2.4)(jiti@2.5.1)(terser@5.44.0):
+  vitest@3.2.4(@types/node@22.18.1)(@vitest/ui@3.2.4)(jiti@2.5.1)(supports-color@5.5.0)(terser@5.44.0):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
@@ -3473,7 +3505,7 @@ snapshots:
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
       vite: 7.1.4(@types/node@22.18.1)(jiti@2.5.1)(terser@5.44.0)
-      vite-node: 3.2.4(@types/node@22.18.1)(jiti@2.5.1)(terser@5.44.0)
+      vite-node: 3.2.4(@types/node@22.18.1)(jiti@2.5.1)(supports-color@5.5.0)(terser@5.44.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.18.1
@@ -3499,7 +3531,7 @@ snapshots:
 
   webpack-sources@3.3.3: {}
 
-  webpack@5.101.3(@swc/core@1.13.5):
+  webpack@5.101.3(@swc/core@1.13.5)(esbuild@0.25.9):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -3523,7 +3555,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.2
       tapable: 2.2.3
-      terser-webpack-plugin: 5.3.14(@swc/core@1.13.5)(webpack@5.101.3(@swc/core@1.13.5))
+      terser-webpack-plugin: 5.3.14(@swc/core@1.13.5)(esbuild@0.25.9)(webpack@5.101.3(@swc/core@1.13.5)(esbuild@0.25.9))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:
